@@ -22,7 +22,8 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.yonbergman.keylibrary"
+      "bundleIdentifier": "com.yonbergman.keylibrary",
+      "buildNumber": "2"
     }
   }
 }
