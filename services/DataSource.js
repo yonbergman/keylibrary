@@ -28,7 +28,6 @@ async function fetchAndParseData() {
   const data = await spreadsheetCall.json();
 
   const rawCards = data.feed.entry;
-  console.log(rawCards);
   const cards = rawCards.map((raw) => {
     return {
       id: attr(raw, "gsx$number"),
@@ -53,6 +52,8 @@ function enrichData(data) {
   return data.map((i) => {
     var a = {
       ...i,
+      simpleSearch: i.name.toLowerCase(),
+      complexSearch: i.name.toLowerCase() + " " + i.traits.toLowerCase() + " " + i.keywords.toLowerCase() + i.text.toLowerCase(),
       smallImage: smallImagePath + i.imageurl,
       largeImage: largeImagePath + i.imageurl,
       subtitle: rarity(i.rarity) + " " + i.type

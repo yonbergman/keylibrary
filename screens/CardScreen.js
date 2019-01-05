@@ -13,8 +13,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import ImageView from 'react-native-image-view';
-import { SearchBar, Card } from 'react-native-elements';
 import Carousel from 'react-native-snap-carousel';
 
 import Colors from '../constants/Colors';
@@ -24,12 +22,18 @@ import { loadData } from  '../services/DataSource';
 import { houseIcons } from '../constants/Houses';
 import TabBarIcon from '../components/TabBarIcon';
 
+const text = (t) => {
+  return function(c) {
+    if (!c) return "0 " + t
+    return c + " " + t
+  }
+}
+
 class Kard extends React.Component {
 
-  aember = (c) => {
-    if (!c) return "0 Aember"
-    return c + " Aember"
-  }
+  aember = text("Aember")
+  power = text("Power")
+  armor = text("Armor")
 
   render() {
     const {card} = this.props;
@@ -40,8 +44,9 @@ class Kard extends React.Component {
         <Text style={[styles.text, styles.h2]}>{card.type}</Text>
         <Text style={[styles.text, styles.p]}>{card.text}</Text>
         <Text style={[styles.text, styles.sm]}>{card.rarity} • {card.house}</Text>
-        <Text style={[styles.text, styles.sm]}>{card.traits}</Text>
+        {(card.traits ? <Text style={[styles.text, styles.sm]}>{card.traits}</Text> : null)}
         <Text style={[styles.text, styles.sm]}>{this.aember(card.aember)}</Text>
+        {(card.type == 'Creature' && <Text style={[styles.text, styles.sm]}>{this.power(card.power)} • {this.armor(card.armor)}</Text>)}
       </View>
     )
   }
@@ -103,7 +108,7 @@ const styles = StyleSheet.create({
   },
   h1: {
     fontWeight: 'bold',
-    fontSize: 30,
+    fontSize: 22,
   },
   h2: {
     fontWeight: 'bold',

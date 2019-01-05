@@ -82,14 +82,25 @@ class CardsScreen extends React.Component {
     const graphMode = this.props.navigation.getParam('graphMode')
     return (
       <View style={styles.container}>
+      <View style={{flexDirection: 'row'}}>
         <SearchBar 
-          placeholder="Search for card"
+          placeholder="Search for card..."
           lightTheme
           round
-          containerStyle={{backgroundColor: 'white'}}
+          inputStyle={{backgroundColor: '#E4E4E5', borderRadius: 10, color: '#8E8E93'}}
+          containerStyle={{backgroundColor: 'white', flex: 2}}
           onChangeText={this._onChangeText}
           onClear={this._onChangeText}
         />
+        <TouchableOpacity onPress={this._onSort} style={{borderBottomWidth: 1, borderBottomColor: '#E1E1E1'}}>
+          <Icon.Ionicons
+            size={24}
+            style={{padding: 8, alignSelf: 'center', marginTop: 3}}
+            name='ios-swap'
+            color="#000"
+          />
+        </TouchableOpacity>
+      </View>
         {graphMode ? this._renderGraph() : this._renderList()}
       </View>
     );
@@ -140,6 +151,11 @@ class CardsScreen extends React.Component {
     const card = this.props.cards.data[idx]
     navigate('Card', {cardIndex: idx})
   }
+
+  _onSort = () => {
+    const { navigate } = this.props.navigation;
+    navigate("Sort")
+  }
 }
 
 const styles = StyleSheet.create({
@@ -157,6 +173,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     margin: 4,
+    borderBottomColor: '#eee',
+    borderBottomWidth: 1,
+    // paddingTop: 4,
+    // paddingBottom: 4,
   },
   itemImage: {
     width: 44,

@@ -5890,11 +5890,6 @@ react-native-gesture-handler@1.0.9:
     invariant "^2.2.2"
     prop-types "^15.5.10"
 
-react-native-image-view@^2.1.2:
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/react-native-image-view/-/react-native-image-view-2.1.2.tgz#0483d82606cac07fd17df59cb52075697af4d024"
-  integrity sha512-jY98E+7RiTPbd/ch3/vCtQycCQC74DoYaFKfzod1wUWlBCQ/yHYHOH3Z6Imlz88Aoq5uRnsLy3Tg+2L3/XUZzw==
-
 react-native-maps@expo/react-native-maps#v0.22.1-exp.0:
   version "0.22.1"
   resolved "https://codeload.github.com/expo/react-native-maps/tar.gz/e6f98ff7272e5d0a7fe974a41f28593af2d77bb2"
@@ -5940,14 +5935,6 @@ react-native-snap-carousel@^3.7.5:
   dependencies:
     prop-types "^15.6.1"
     react-addons-shallow-compare "15.6.2"
-
-react-native-super-grid@^2.4.4:
-  version "2.4.4"
-  resolved "https://registry.yarnpkg.com/react-native-super-grid/-/react-native-super-grid-2.4.4.tgz#6d13e4d6009022f40c1473ec810fe4d0cfcf7e1f"
-  integrity sha512-XHJabrphDc4JIz5bXcbxsZoLA9CBQEFcz9YYdikm05MkS5RkvgQg+2qzDAe7DWemcGv+5bpFNlE+FF4U+3kmdg==
-  dependencies:
-    lodash "^4.17.10"
-    prop-types "^15.6.0"
 
 react-native-svg@8.0.8:
   version "8.0.8"

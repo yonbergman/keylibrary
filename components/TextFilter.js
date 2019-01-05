@@ -1,6 +1,5 @@
 import React from 'react';
 import { Image,View, Text, StyleSheet, TouchableOpacity } from 'react-native';
-import { Button } from 'react-native-elements';
 
 import {houseIcons} from '../constants/Houses';
 import Colors from '../constants/Colors';

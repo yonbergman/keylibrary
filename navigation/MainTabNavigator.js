@@ -7,10 +7,12 @@ import CardsScreen from '../screens/CardsScreen';
 import FiltersScreen from '../screens/FilterScreen';
 import Colors from '../constants/Colors';
 import CardScreen from '../screens/CardScreen';
+import SortScreen from '../screens/SortScreen';
 
 const HomeStack = createStackNavigator({
   Cards: CardsScreen,
-  Card: CardScreen
+  Card: CardScreen,
+  Sort: SortScreen
 }, {
   mode: 'modal',
 });
