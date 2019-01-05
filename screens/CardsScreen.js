@@ -146,7 +146,6 @@ class CardsScreen extends React.Component {
   }
   
   _onPressItem = (idx) => {
-    console.log("onPress", idx)
     const { navigate } = this.props.navigation;
     const card = this.props.cards.data[idx]
     navigate('Card', {cardIndex: idx})
