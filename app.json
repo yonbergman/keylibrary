@@ -24,7 +24,9 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.yonbergman.keylibrary",
       "buildNumber": "2",
-      "usesNonExemptEncryption": false
+      "config": {
+        "usesNonExemptEncryption": false
+      }
     }
   }
 }
