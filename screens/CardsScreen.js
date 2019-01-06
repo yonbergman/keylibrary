@@ -4,9 +4,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import {
-  Button,
   Image,
-  Platform,
   FlatList,
   StyleSheet,
   Dimensions,
@@ -60,8 +58,8 @@ class CardsScreen extends React.Component {
         backgroundColor: Colors.tintColor,
       },
       headerRight: (
-        <TouchableOpacity onPress={(press) => {navigation.setParams({graphMode: !graphMode})}}>
-          <Image style={{width:24, height: 24, marginRight: 16, tintColor: '#fff'}} tintColor="#fff" source={graphMode ? require('../assets/images/list.png') : require('../assets/images/grid.png')}/>
+        <TouchableOpacity onPress={() => {navigation.setParams({graphMode: !graphMode})}}>
+          <Image style={styles.headerIcon} tintColor="#fff" source={graphMode ? require('../assets/images/list.png') : require('../assets/images/grid.png')}/>
         </TouchableOpacity>
       )
   }}
@@ -121,7 +119,7 @@ class CardsScreen extends React.Component {
     const height = width * 150/106
     return (
       <TouchableOpacity onPress={() => this._onPressItem(index)}>
-        <Image style={{backgroundColor: '#EEE', borderRadius: 2, height: height, width: width, flex: 1, margin: 4}} source={{uri: item.smallImage}}/>
+        <Image style={[{height: height, width: width}, styles.cardItem]} source={{uri: item.smallImage}}/>
       </TouchableOpacity>
     )
   }
@@ -147,7 +145,6 @@ class CardsScreen extends React.Component {
   
   _onPressItem = (idx) => {
     const { navigate } = this.props.navigation;
-    const card = this.props.cards.data[idx]
     navigate('Card', {cardIndex: idx})
   }
 
@@ -158,12 +155,24 @@ class CardsScreen extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  headerIcon: {
+    width: 24, 
+    height: 24, 
+    marginRight: 16, 
+    tintColor: Colors.iconWhite,
+  },
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: Colors.whiteBackground,
   },
   grid: {
     padding: 8,
+  },
+  cardItem: {
+    flex: 1, 
+    margin: 4,
+    backgroundColor: Colors.loadingCard,
+    borderRadius: 2, 
   },
   item: {
     fontSize: 18,
@@ -172,10 +181,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     margin: 4,
-    borderBottomColor: '#eee',
+    borderBottomColor: Colors.seperatorLine,
     borderBottomWidth: 1,
-    // paddingTop: 4,
-    // paddingBottom: 4,
   },
   itemImage: {
     width: 44,
@@ -190,9 +197,8 @@ const styles = StyleSheet.create({
 
   },
   itemCardDetails: {
-    color: '#8E8E93'
-
-  }
+    color: Colors.blackText400,
+  },
 });
 
 const mapStateToProps = (state) => {
@@ -203,7 +209,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
     loadedCards,
-    searchCards
+    searchCards,
   }, dispatch)
 );
 

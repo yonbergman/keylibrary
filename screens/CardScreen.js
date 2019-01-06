@@ -1,26 +1,17 @@
 import React from 'react';
-import { Icon } from 'expo';
 import { connect } from 'react-redux';
 
 import {
-  Button,
   Image,
-  Platform,
-  FlatList,
   StyleSheet,
   Dimensions,
   Text,
-  TouchableOpacity,
   View,
 } from 'react-native';
+
 import Carousel from 'react-native-snap-carousel';
 
 import Colors from '../constants/Colors';
-
-import { loadedCards, searchCards } from '../redux/CardReducer';
-import { loadData } from  '../services/DataSource';
-import { houseIcons } from '../constants/Houses';
-import TabBarIcon from '../components/TabBarIcon';
 
 const text = (t) => {
   return function(c) {
@@ -28,7 +19,6 @@ const text = (t) => {
     return c + " " + t
   }
 }
-
 class Kard extends React.Component {
 
   aember = text("Aember")
@@ -36,7 +26,7 @@ class Kard extends React.Component {
   armor = text("Armor")
 
   render() {
-    const {card} = this.props;
+    const { card } = this.props;
     return (
       <View style={styles.item}>
         <Image style={styles.image} source={{uri: card.largeImage}}/>
@@ -55,14 +45,16 @@ class Kard extends React.Component {
 
 class CardScreen extends React.Component {
 
-  static navigationOptions = ({navigation}) => { 
-    return {header: null, gestureResponseDistance: {vertical: 400}}
+  static navigationOptions = { 
+    header: null, 
+    gestureResponseDistance: {
+      vertical: 400,
+    },
   }
 
   render() {
     const { cards, navigation} = this.props;
     const cardIndex = navigation.getParam('cardIndex');
-    const card = cards.data[cardIndex];
     return (
       <View style={styles.container}>
         <Carousel
@@ -76,16 +68,16 @@ class CardScreen extends React.Component {
     );
   }
 
-  _renderItem = ({item, index}) => {
+  _renderItem = ({item}) => {
     return <Kard card={item}/>
   }
-  _keyExtractor = (item, index) => item.id;
+  _keyExtractor = (item) => item.id;
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFF',
+    backgroundColor: Colors.whiteBackground,
   },
   item: {
     padding: 38,
@@ -95,16 +87,16 @@ const styles = StyleSheet.create({
     width: 299,
     height: 420,
     borderRadius: 8,
-    backgroundColor: "#EEE",
+    backgroundColor: Colors.loadingCard,
     alignSelf: 'center',
     marginTop: 16,
-    marginBottom: 16
+    marginBottom: 16,
   },
   text: {
-    color: '#252729',
+    color: Colors.blackText200,
     textAlign: 'center',
-    maxWidth: 320,
-    alignSelf: 'center'
+    width: 299,
+    alignSelf: 'center',
   },
   h1: {
     fontWeight: 'bold',
@@ -123,9 +115,8 @@ const styles = StyleSheet.create({
   sm: {
     fontWeight: '200',
     fontSize: 13,
-    opacity: 0.8
-  }
-
+    opacity: 0.8,
+  },
 });
 
 const mapStateToProps = (state) => {
