@@ -19,7 +19,7 @@ const text = (t) => {
     return c + " " + t
   }
 }
-class Kard extends React.Component {
+class Kard extends React.PureComponent {
 
   aember = text("Aember")
   power = text("Power")
@@ -61,8 +61,9 @@ class CardScreen extends React.Component {
           data={cards.data}
           renderItem={this._renderItem}
           sliderWidth={Dimensions.get('window').width}
-          itemWidth={299}
+          itemWidth={300}
           firstItem={cardIndex}
+          initialNumToRender={cardIndex}
         />
       </View>
     );
@@ -80,11 +81,12 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.whiteBackground,
   },
   item: {
-    padding: 38,
-    width: 299,
+    paddingTop: 38,
+    width: 300,
+    backgroundColor: '#E0E',
   },
   image: {
-    width: 299,
+    width: 300,
     height: 420,
     borderRadius: 8,
     backgroundColor: Colors.loadingCard,
@@ -95,7 +97,7 @@ const styles = StyleSheet.create({
   text: {
     color: Colors.blackText200,
     textAlign: 'center',
-    width: 299,
+    width: 280,
     alignSelf: 'center',
   },
   h1: {
