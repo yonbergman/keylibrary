@@ -85,6 +85,9 @@ class CardsScreen extends React.Component {
           placeholder="Search for card..."
           lightTheme
           round
+          autoCorrect={false}
+          autoCapitalize="none"
+          clearButtonMode="while-editing"
           inputStyle={{backgroundColor: '#E4E4E5', borderRadius: 10, color: '#8E8E93'}}
           containerStyle={{backgroundColor: 'white', flex: 2}}
           onChangeText={this._onChangeText}
@@ -93,7 +96,7 @@ class CardsScreen extends React.Component {
         <TouchableOpacity onPress={this._onSort} style={{borderBottomWidth: 1, borderBottomColor: '#E1E1E1'}}>
           <Icon.Ionicons
             size={24}
-            style={{padding: 8, alignSelf: 'center', marginTop: 3}}
+            style={{padding: 8, alignSelf: 'center', marginTop: 3, marginRight: 4}}
             name='ios-swap'
             color="#000"
           />
@@ -158,7 +161,7 @@ const styles = StyleSheet.create({
   headerIcon: {
     width: 24, 
     height: 24, 
-    marginRight: 16, 
+    marginRight: 10, 
     tintColor: Colors.iconWhite,
   },
   container: {
