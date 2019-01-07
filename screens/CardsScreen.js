@@ -137,7 +137,7 @@ class CardsScreen extends React.Component {
     return <CardRow onPressItem={() => this._onPressItem(index)} {...item}/>
   }
 
-  _keyExtractor = (item, index) => item.id;
+  _keyExtractor = (item, index) => item.id.toString();
 
   _onChangeText = (text ) => {
     this.props.searchCards(text);

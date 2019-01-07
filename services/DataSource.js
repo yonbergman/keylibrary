@@ -1,7 +1,7 @@
 import { AsyncStorage } from "react-native"
 const smallImagePath = 'http://aembertree.com/cards-small/'
 const largeImagePath = 'http://aembertree.com/cards/'
-const cardCacheKey = "_CARDS_CACHE_20";
+const cardCacheKey = "_CARDS_CACHE_21";
 
 function attr(data, str) {
   return data[str]['$t'];
@@ -30,7 +30,7 @@ async function fetchAndParseData() {
   const rawCards = data.feed.entry;
   const cards = rawCards.map((raw) => {
     return {
-      id: attr(raw, "gsx$number"),
+      id: parseInt(attr(raw, "gsx$number")),
       name: attr(raw, "gsx$name"),
       house: attr(raw, 'gsx$house'),
       type: attr(raw, 'gsx$type'),

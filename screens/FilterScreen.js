@@ -1,26 +1,53 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { toggleFilter } from '../redux/CardReducer';
+import { toggleFilter, deselectAllFilters, selectAllFilters } from '../redux/CardReducer';
 
 import Colors from '../constants/Colors';
 
-
 import {
   Button,
-  Image,
-  Platform,
-  FlatList,
   Dimensions,
   StyleSheet,
   Text,
-  TouchableOpacity,
-  ScrollView,
   View,
 } from 'react-native';
 import Filter from '../components/TextFilter'
 import { HouseFilter, TypeFilter, RarityFilter } from '../services/FilterSource';
 import { houseIcons } from '../constants/Houses';
+
+
+class SelectButton extends React.Component {
+
+  render() {
+    return <Button onPress={this._onPress} title={this.hasAnyOff() ? "Select All" : 'Deselect All'} color="#fff"/>
+  }
+
+  hasAnyOff = () => {
+    return Object.values(this.props.filterState).some((x) => !x)
+  }
+
+  _onPress = () => {
+    this.hasAnyOff() ? this.props.selectAllFilters() : this.props.deselectAllFilters()
+  }
+
+}
+
+const mapStateToProps2 = (state) => {
+  const { cards } = state
+  return { filterState: cards.filters }
+};
+
+const mapDispatchToProps2 = dispatch => (
+  bindActionCreators({
+    deselectAllFilters,
+    selectAllFilters,
+  }, dispatch)
+);
+
+const ConnectedSelectButton = connect(mapStateToProps2, mapDispatchToProps2)(SelectButton);
+
+
 
 class FiltersView extends React.Component {
   render() {
@@ -36,34 +63,22 @@ class FiltersView extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  const { cards } = state
-  return { filterState: cards.filters }
-};
-
-const mapDispatchToProps = dispatch => (
-  bindActionCreators({
-    toggleFilter,
-  }, dispatch)
-);
-
-
-const ConnectedFiltersView = connect(mapStateToProps, mapDispatchToProps)(FiltersView);
-
-export default class FilterScreen extends React.Component {
+class FilterScreen extends React.Component {
   static navigationOptions = {
     title: 'Filters',
     headerTintColor: '#FFF',
     headerStyle: {
       backgroundColor: Colors.tintColor,
-    }
-  };
+    },
+    headerRight: <ConnectedSelectButton />,
+  }
 
   render() {
+    const {filterState, toggleFilter} = this.props;
     return <View style={styles.container}>
-      <ConnectedFiltersView filter={HouseFilter} imageSource={houseIcons}/>
-      <ConnectedFiltersView filter={TypeFilter}/>
-      <ConnectedFiltersView filter={RarityFilter}/>
+      <FiltersView filter={HouseFilter} imageSource={houseIcons} filterState={filterState} toggleFilter={toggleFilter} />
+      <FiltersView filter={TypeFilter} filterState={filterState} toggleFilter={toggleFilter}/>
+      <FiltersView filter={RarityFilter} filterState={filterState} toggleFilter={toggleFilter}/>
     </View>;
   }
 }
@@ -86,6 +101,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     flexWrap: 'wrap',
-  }
+  },
   
 });
+
+const mapStateToProps = (state) => {
+  const { cards } = state
+  return { filterState: cards.filters }
+};
+
+const mapDispatchToProps = dispatch => (
+  bindActionCreators({
+    toggleFilter,
+  }, dispatch)
+);
+
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(FilterScreen);

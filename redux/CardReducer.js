@@ -9,10 +9,10 @@ HouseFilter.items.forEach((i) => INITIAL_FILTER_STATE[i.name]=true)
 RarityFilter.items.forEach((i) => INITIAL_FILTER_STATE[i.name]=true)
 TypeFilter.items.forEach((i) => INITIAL_FILTER_STATE[i.name]=true)
 
-const LOAD_CARDS = 'LOAD_CARDS';
 const LOADED_CARDS = 'LOADED_CARDS';
-const FILTER_CARDS = 'FILTER_CARDS';
 const TOGGLE_FILTER = 'TOGGLE_FILTER';
+const SELECT_ALL_FILTERS = 'SELECT_ALL_FILTERS';
+const DESELECT_ALL_FILTERS = 'DESELECT_ALL_FILTERS';
 const SEARCH_CARDS = 'SEARCH_CARDS';
 const SORT_CARDS = 'SORT_CARDS';
 
@@ -37,7 +37,6 @@ const prepareCards = (state) => {
   var cards = cardData;
   if (query) {
     var sanatizedQuery = query && query.toLowerCase().trim()
-    const complexQuery = sanatizedQuery[0] == "+"
     if (sanatizedQuery.startsWith("+")) {
       sanatizedQuery = sanatizedQuery.slice(1);
       cards = cards.filter((card) => card.complexSearch.indexOf(sanatizedQuery) > -1);
@@ -67,6 +66,16 @@ export default cardReducer = (state = INITIAL_STATE, action) => {
     case TOGGLE_FILTER: 
       return produce(state, (s) => {
         s.filters[action.payload.key] = action.payload.value
+        s.data = prepareCards(s)
+      })
+    case DESELECT_ALL_FILTERS:
+      return produce(state, (s) => {
+        Object.keys(s.filters).forEach((key) => s.filters[key] = false)
+        s.data = []
+      })
+    case SELECT_ALL_FILTERS:
+      return produce(state, (s) => {
+        Object.keys(s.filters).forEach((key) => s.filters[key] = true)
         s.data = prepareCards(s)
       })
     case SORT_CARDS: 
@@ -104,5 +113,19 @@ export const sortCards = (sortBy) => (
   {
     type: SORT_CARDS,
     payload: {sortBy},
+  }
+);
+
+export const deselectAllFilters = () => (
+  {
+    type: DESELECT_ALL_FILTERS,
+    payload: {},
+  }
+);
+
+export const selectAllFilters = () => (
+  {
+    type: SELECT_ALL_FILTERS,
+    payload: {},
   }
 );
