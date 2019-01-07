@@ -83,7 +83,6 @@ const styles = StyleSheet.create({
   item: {
     paddingTop: 38,
     width: 300,
-    backgroundColor: '#E0E',
   },
   image: {
     width: 300,
