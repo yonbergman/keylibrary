@@ -1,18 +1,11 @@
 import React from 'react';
-import { Icon } from 'expo';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { SortBySources } from '../services/SortSource';
 
 import {
-  Button,
-  Image,
-  Platform,
   FlatList,
   StyleSheet,
-  Dimensions,
-  Text,
-  TouchableOpacity,
   View,
 } from 'react-native';
 
@@ -21,7 +14,6 @@ import { ListItem } from 'react-native-elements'
 import Colors from '../constants/Colors';
 
 import { sortCards } from '../redux/CardReducer';
-import TabBarIcon from '../components/TabBarIcon';
 
 class SortScreen extends React.Component {
 
@@ -29,14 +21,12 @@ class SortScreen extends React.Component {
     return {
       title: 'Sort By',
       headerTintColor: '#FFF',
-      headerBackTitle: 'Cancel',
-      headerTruncatedBackTitle: 'Cancel',
       headerStyle: {
         backgroundColor: Colors.tintColor,
       },
       gestureResponseDistance: {
-        vertical: 400
-      }
+        vertical: 400,
+      },
     }
   }
 
@@ -125,7 +115,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => (
   bindActionCreators({
-    sortCards
+    sortCards,
   }, dispatch)
 );
 

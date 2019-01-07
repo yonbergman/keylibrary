@@ -2,6 +2,7 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { toggleFilter, deselectAllFilters, selectAllFilters } from '../redux/CardReducer';
+import { HeaderBackButton } from 'react-navigation';
 
 import Colors from '../constants/Colors';
 
@@ -64,14 +65,15 @@ class FiltersView extends React.Component {
 }
 
 class FilterScreen extends React.Component {
-  static navigationOptions = {
+  static navigationOptions = ({navigation}) => ({
     title: 'Filters',
     headerTintColor: '#FFF',
     headerStyle: {
       backgroundColor: Colors.tintColor,
     },
     headerRight: <ConnectedSelectButton />,
-  }
+    headerLeft: <HeaderBackButton title="Back" onPress={() => navigation.navigate('Cards')} tintColor='#fff'/>,
+  })
 
   render() {
     const {filterState, toggleFilter} = this.props;
@@ -79,6 +81,7 @@ class FilterScreen extends React.Component {
       <FiltersView filter={HouseFilter} imageSource={houseIcons} filterState={filterState} toggleFilter={toggleFilter} />
       <FiltersView filter={TypeFilter} filterState={filterState} toggleFilter={toggleFilter}/>
       <FiltersView filter={RarityFilter} filterState={filterState} toggleFilter={toggleFilter}/>
+      <Text style={styles.cardCount}>{this.props.visibleCards} cards / {this.props.allCards} </Text>
     </View>;
   }
 }
@@ -102,12 +105,18 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     flexWrap: 'wrap',
   },
+  cardCount: {
+    marginTop: 10,
+    marginRight: 2,
+    color: Colors.blackText400,
+    alignSelf: 'flex-end',
+  },
   
 });
 
 const mapStateToProps = (state) => {
   const { cards } = state
-  return { filterState: cards.filters }
+  return { filterState: cards.filters, allCards: cards.cardData.length, visibleCards: cards.data.length }
 };
 
 const mapDispatchToProps = dispatch => (

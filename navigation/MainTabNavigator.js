@@ -12,7 +12,7 @@ import SortScreen from '../screens/SortScreen';
 const HomeStack = createStackNavigator({
   Cards: CardsScreen,
   Card: CardScreen,
-  Sort: SortScreen
+  Sort: SortScreen,
 }, {
   mode: 'modal',
 });
